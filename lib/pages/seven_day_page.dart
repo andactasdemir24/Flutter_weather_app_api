@@ -357,7 +357,8 @@ class _SevenDayPageState extends State<SevenDayPage> {
         divider(),
         CustomSizedBox()._sizedBox20,
         sevenDays(
-          Lottie.asset(imageModel[0]!.imageUrl, height: 30),
+          Image.network('https://www.weatherbit.io/static/img/icons/${weatherList![0].weather!.icon.toString()}.png',
+              height: 30),
           'Today',
           weatherList != null && weatherList!.isNotEmpty ? weatherList![0].weather!.description.toString() : '',
           weatherList != null && weatherList!.isNotEmpty
@@ -366,7 +367,8 @@ class _SevenDayPageState extends State<SevenDayPage> {
         ),
         CustomSizedBox()._sizedBox5,
         sevenDays(
-          Lottie.asset(imageModel[1]!.imageUrl, height: 30),
+          Image.network('https://www.weatherbit.io/static/img/icons/${weatherList![1].weather!.icon.toString()}.png',
+              height: 30),
           'Tomorrow',
           weatherList != null && weatherList!.isNotEmpty ? weatherList![1].weather!.description.toString() : '',
           weatherList != null && weatherList!.isNotEmpty
@@ -375,7 +377,8 @@ class _SevenDayPageState extends State<SevenDayPage> {
         ),
         CustomSizedBox()._sizedBox5,
         sevenDays(
-          Lottie.asset(imageModel[1]!.imageUrl, height: 30),
+          Image.network('https://www.weatherbit.io/static/img/icons/${weatherList![2].weather!.icon.toString()}.png',
+              height: 30),
           'Saturday',
           weatherList != null && weatherList!.isNotEmpty ? weatherList![2].weather!.description.toString() : '',
           weatherList != null && weatherList!.isNotEmpty
@@ -384,7 +387,8 @@ class _SevenDayPageState extends State<SevenDayPage> {
         ),
         CustomSizedBox()._sizedBox5,
         sevenDays(
-          Lottie.asset(imageModel[0]!.imageUrl, height: 30),
+          Image.network('https://www.weatherbit.io/static/img/icons/${weatherList![4].weather!.icon.toString()}.png',
+              height: 30),
           'Sunday',
           weatherList != null && weatherList!.isNotEmpty ? weatherList![3].weather!.description.toString() : '',
           weatherList != null && weatherList!.isNotEmpty
@@ -393,7 +397,8 @@ class _SevenDayPageState extends State<SevenDayPage> {
         ),
         CustomSizedBox()._sizedBox5,
         sevenDays(
-          Lottie.asset(imageModel[2]!.imageUrl, height: 30),
+          Image.network('https://www.weatherbit.io/static/img/icons/${weatherList![4].weather!.icon.toString()}.png',
+              height: 30),
           'Monday',
           weatherList != null && weatherList!.isNotEmpty ? weatherList![4].weather!.description.toString() : '',
           weatherList != null && weatherList!.isNotEmpty
@@ -402,7 +407,8 @@ class _SevenDayPageState extends State<SevenDayPage> {
         ),
         CustomSizedBox()._sizedBox5,
         sevenDays(
-          Lottie.asset(imageModel[2]!.imageUrl, height: 30),
+          Image.network('https://www.weatherbit.io/static/img/icons/${weatherList![5].weather!.icon.toString()}.png',
+              height: 30),
           'Tuesday',
           weatherList != null && weatherList!.isNotEmpty ? weatherList![5].weather!.description.toString() : '',
           weatherList != null && weatherList!.isNotEmpty
@@ -410,7 +416,8 @@ class _SevenDayPageState extends State<SevenDayPage> {
               : '',
         ),
         sevenDays(
-          Lottie.asset(imageModel[1]!.imageUrl, height: 30),
+          Image.network('https://www.weatherbit.io/static/img/icons/${weatherList![6].weather!.icon.toString()}.png',
+              height: 30),
           'Wednesday',
           weatherList != null && weatherList!.isNotEmpty ? weatherList![6].weather!.description.toString() : '',
           weatherList != null && weatherList!.isNotEmpty
