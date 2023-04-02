@@ -4,6 +4,7 @@ import 'package:lottie/lottie.dart';
 import '../Model/images_model.dart';
 import '../Model/weather_model.dart';
 import '../service/weather_service.dart';
+import 'package:intl/intl.dart';
 
 class SevenDayPage extends StatefulWidget {
   const SevenDayPage({super.key});
@@ -63,7 +64,7 @@ class _SevenDayPageState extends State<SevenDayPage> {
                                 CustomSizedBox()._sizedBox20,
                                 dateTimeAndTemp(),
                                 CustomSizedBox()._sizedBox20,
-                                sevendayList(imageModel),
+                                sevendayList(),
                                 CustomSizedBox()._sizedBox20,
                                 weatherDetailsAll(),
                                 const SizedBox(height: 50),
@@ -351,86 +352,39 @@ class _SevenDayPageState extends State<SevenDayPage> {
   }
 
   //BU KISIM ŞU TARİHİN ALTINDAKİ OLAN YERİN TAMAMI BİDE BUNLARIN İÇİNİN METHODU VAR ODA SEVENDAYS DİYE TANIMLADIĞIM
-  Column sevendayList(List<ImageModel?> imageModel) {
+  Column sevendayList() {
+    String iconUrl = 'https://www.weatherbit.io/static/img/icons/';
+    List<Widget> dayWidgets = [];
+
+    for (int i = 0; i < 7; i++) {
+      if (weatherList != null && weatherList!.isNotEmpty) {
+        String day = (i == 0)
+            ? 'Today'
+            : (i == 1)
+                ? 'Tomorrow'
+                : DateFormat('EEEE').format(DateTime.parse(weatherList![i].datetime!));
+        String description = weatherList![i].weather!.description.toString();
+        String temperature =
+            '${weatherList![i].appMinTemp!.truncate().toString()}°C / ${weatherList![i].appMaxTemp!.truncate().toString()}°C';
+
+        dayWidgets.add(CustomSizedBox()._sizedBox5);
+        dayWidgets.add(sevenDays(
+          Image.network(
+            '$iconUrl${weatherList![i].weather!.icon.toString()}.png',
+            height: 30,
+          ),
+          day,
+          description,
+          temperature,
+        ));
+      }
+    }
+
     return Column(
       children: [
         divider(),
         CustomSizedBox()._sizedBox20,
-        sevenDays(
-          Image.network(
-              'https://www.weatherbit.io/static/img/icons/${weatherList != null && weatherList!.isNotEmpty ? weatherList![0].weather!.icon.toString() : ''}.png',
-              height: 30),
-          'Today',
-          weatherList != null && weatherList!.isNotEmpty ? weatherList![0].weather!.description.toString() : '',
-          weatherList != null && weatherList!.isNotEmpty
-              ? '${weatherList![0].appMinTemp!.truncate().toString()}°C / ${weatherList![0].appMaxTemp!.truncate().toString()}°C'
-              : '',
-        ),
-        CustomSizedBox()._sizedBox5,
-        sevenDays(
-          Image.network(
-              'https://www.weatherbit.io/static/img/icons/${weatherList != null && weatherList!.isNotEmpty ? weatherList![1].weather!.icon.toString() : ''}.png',
-              height: 30),
-          'Tomorrow',
-          weatherList != null && weatherList!.isNotEmpty ? weatherList![1].weather!.description.toString() : '',
-          weatherList != null && weatherList!.isNotEmpty
-              ? '${weatherList![1].appMinTemp!.truncate().toString()}°C / ${weatherList![1].appMaxTemp!.truncate().toString()}°C'
-              : '',
-        ),
-        CustomSizedBox()._sizedBox5,
-        sevenDays(
-          Image.network(
-              'https://www.weatherbit.io/static/img/icons/${weatherList != null && weatherList!.isNotEmpty ? weatherList![2].weather!.icon.toString() : ''}.png',
-              height: 30),
-          'Saturday',
-          weatherList != null && weatherList!.isNotEmpty ? weatherList![2].weather!.description.toString() : '',
-          weatherList != null && weatherList!.isNotEmpty
-              ? '${weatherList![2].appMinTemp!.truncate().toString()}°C / ${weatherList![2].appMaxTemp!.truncate().toString()}°C'
-              : '',
-        ),
-        CustomSizedBox()._sizedBox5,
-        sevenDays(
-          Image.network(
-              'https://www.weatherbit.io/static/img/icons/${weatherList != null && weatherList!.isNotEmpty ? weatherList![3].weather!.icon.toString() : ''}.png',
-              height: 30),
-          'Sunday',
-          weatherList != null && weatherList!.isNotEmpty ? weatherList![3].weather!.description.toString() : '',
-          weatherList != null && weatherList!.isNotEmpty
-              ? '${weatherList![3].appMinTemp!.truncate().toString()}°C / ${weatherList![3].appMaxTemp!.truncate().toString()}°C'
-              : '',
-        ),
-        CustomSizedBox()._sizedBox5,
-        sevenDays(
-          Image.network(
-              'https://www.weatherbit.io/static/img/icons/${weatherList != null && weatherList!.isNotEmpty ? weatherList![4].weather!.icon.toString() : ''}.png',
-              height: 30),
-          'Monday',
-          weatherList != null && weatherList!.isNotEmpty ? weatherList![4].weather!.description.toString() : '',
-          weatherList != null && weatherList!.isNotEmpty
-              ? '${weatherList![4].appMinTemp!.truncate().toString()}°C / ${weatherList![4].appMaxTemp!.truncate().toString()}°C'
-              : '',
-        ),
-        CustomSizedBox()._sizedBox5,
-        sevenDays(
-          Image.network(
-              'https://www.weatherbit.io/static/img/icons/${weatherList != null && weatherList!.isNotEmpty ? weatherList![5].weather!.icon.toString() : ''}.png',
-              height: 30),
-          'Tuesday',
-          weatherList != null && weatherList!.isNotEmpty ? weatherList![5].weather!.description.toString() : '',
-          weatherList != null && weatherList!.isNotEmpty
-              ? '${weatherList![5].appMinTemp!.truncate().toString()}°C / ${weatherList![5].appMaxTemp!.truncate().toString()}°C'
-              : '',
-        ),
-        sevenDays(
-          Image.network(
-              'https://www.weatherbit.io/static/img/icons/${weatherList != null && weatherList!.isNotEmpty ? weatherList![6].weather!.icon.toString() : ''}.png',
-              height: 30),
-          'Wednesday',
-          weatherList != null && weatherList!.isNotEmpty ? weatherList![6].weather!.description.toString() : '',
-          weatherList != null && weatherList!.isNotEmpty
-              ? '${weatherList![6].appMinTemp!.truncate().toString()}°C / ${weatherList![6].appMaxTemp!.truncate().toString()}°C'
-              : '',
-        ),
+        ...dayWidgets,
         CustomSizedBox()._sizedBox20,
         divider(),
       ],
