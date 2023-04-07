@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class WeatherService {
+  /*
   final String url =
       'https://api.weatherbit.io/v2.0/forecast/daily?city=Raleigh,NC&key=5cea02af6cd6498d9524cedb8ab23b4c';
 
@@ -17,8 +18,9 @@ class WeatherService {
     }
     return null;
   }
-  /*
-  Future<WeatherModel?> newCity(String city) async {
+  */
+
+  Future<WeatherModel?> fetchWeather(String city) async {
     String url2 = 'https://api.weatherbit.io/v2.0/forecast/daily?city=$city&key=5cea02af6cd6498d9524cedb8ab23b4c';
     var response = await http.get(Uri.parse(url2));
     if (response.statusCode == 200) {
@@ -30,5 +32,4 @@ class WeatherService {
     }
     return null;
   }
-  */
 }

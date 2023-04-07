@@ -17,12 +17,13 @@ class _SevenDayPageState extends State<SevenDayPage> {
   List<Data>? weatherList = [];
   late Future<WeatherModel?> myWeather;
   final WeatherService _service = WeatherService();
+  String selectedCity = 'Ankara';
 
   @override
   void initState() {
     super.initState();
-    myWeather = _service.fetchWeather();
-    _service.fetchWeather().then((value) {
+    myWeather = _service.fetchWeather(selectedCity);
+    _service.fetchWeather(selectedCity).then((value) {
       if (value != null && value.data != null) {
         setState(() {
           weatherList = value.data;
@@ -116,9 +117,9 @@ class _SevenDayPageState extends State<SevenDayPage> {
       children: [
         Text(
           weatherList != null && weatherList!.isNotEmpty ? weatherList![0].temp!.truncate().toString() : '',
-          style: const TextStyle(color: Colors.white, fontSize: 60),
+          style: const TextStyle(color: Colors.white, fontSize: 55),
         ),
-        const SizedBox(width: 20),
+        const SizedBox(width: 10),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -139,7 +140,7 @@ class _SevenDayPageState extends State<SevenDayPage> {
                       : '',
                   style: const TextStyle(
                     color: Colors.white,
-                    fontSize: 20,
+                    fontSize: 19,
                     fontWeight: FontWeight.bold,
                   ),
                 ),

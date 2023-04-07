@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_weather_app/Model/city_model.dart';
 import 'package:flutter_weather_app/pages/seven_day_page.dart';
 import 'package:lottie/lottie.dart';
 import '../Model/images_model.dart';
@@ -18,13 +19,15 @@ class _HomePageState extends State<HomePage> {
   final WeatherService _service = WeatherService(); //Servisi çektim api
   //Sayfayı yenilemede kullanmak için key oluşturdum
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
+  final CityModel cityModel = CityModel();
+  String selectedCity = 'Ankara';
 
   //Kontrolleri yap
   @override
   void initState() {
     super.initState();
-    myWeather = _service.fetchWeather();
-    _service.fetchWeather().then((value) {
+    myWeather = _service.fetchWeather(selectedCity.toLowerCase());
+    _service.fetchWeather(selectedCity.toLowerCase()).then((value) {
       if (value != null && value.data != null) {
         setState(() {
           weatherList = value.data!;
@@ -37,16 +40,18 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     //IMAGE MODELİNİ LİSTEYE ATTIM ÇEKTİM
     final List<ImageModel?> imageModel = ImageModel.images;
+
     return Scaffold(
       floatingActionButton: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 15),
         child: FloatingActionButton.extended(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
           backgroundColor: Colors.amber,
           onPressed: () {
             // Global keyden gelen anlık veriyi gösteriyor
             _refreshIndicatorKey.currentState?.show();
           },
-          label: const Text('Refresh Data'),
+          label: const Text('Change City'),
           icon: const Icon(Icons.refresh),
         ),
       ),
@@ -99,6 +104,7 @@ class _HomePageState extends State<HomePage> {
                               return Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
+                                  selectCityButton(context),
                                   cityName(snapshot),
                                   CustomSizedBox()._sizedBox10,
                                   countryCode(snapshot),
@@ -110,7 +116,7 @@ class _HomePageState extends State<HomePage> {
                                   //Temp wind humudiy yazan kısmın çerçevesi buradan başlar
                                   tempWindHumudityContainer(),
                                   const SizedBox(height: 50),
-                                  sevendayWidget(context)
+                                  sevendayWidget(context),
                                 ],
                               );
                             }
@@ -137,10 +143,50 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  ElevatedButton selectCityButton(BuildContext context) {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.amber[500],
+        fixedSize: const Size(250, 20),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
+        ),
+      ),
+      onPressed: () {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text("Şehirler"),
+              content: SingleChildScrollView(
+                child: ListBody(
+                  children: List.generate(cityModel.cities.length, (index) {
+                    return SimpleDialogOption(
+                      onPressed: () {
+                        Navigator.pop(context, cityModel.cities[index]);
+                      },
+                      child: Text(cityModel.cities[index]),
+                    );
+                  }),
+                ),
+              ),
+            );
+          },
+        ).then((value) {
+          setState(() {
+            selectedCity = value;
+          });
+        });
+      },
+      child: const Text("Şehir seçemk için tıklayınız!"),
+    );
+  }
+
+  //tıkladığımda verilerin değişmesi için yazılan fonksiyon
   Future<void> onRefresh() async {
     setState(() {
-      myWeather = _service.fetchWeather();
-      _service.fetchWeather().then((value) {
+      myWeather = _service.fetchWeather(selectedCity.toLowerCase());
+      _service.fetchWeather(selectedCity.toLowerCase()).then((value) {
         if (value != null && value.data != null) {
           setState(() {
             weatherList = value.data!;
@@ -152,7 +198,7 @@ class _HomePageState extends State<HomePage> {
       });
     });
 
-    return Future<void>.delayed(const Duration(seconds: 2));
+    return Future<void>.delayed(const Duration(seconds: 1));
   }
 
   Text cityName(AsyncSnapshot<WeatherModel?> snapshot) {
