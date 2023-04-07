@@ -66,11 +66,8 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/lottie/splash_animation.json
-    - assets/lottie/sunny.json
     - assets/lottie/night.json
-    - assets/lottie/rainy.json
-    - assets/lottie/snow.json
-    - assets/Image/avatar.jpg
+    - assets/Image/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

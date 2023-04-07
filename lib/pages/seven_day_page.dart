@@ -55,7 +55,7 @@ class _SevenDayPageState extends State<SevenDayPage> {
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
                             String? image;
-                            image = imageModel[3]!.imageUrl;
+                            image = imageModel[0]!.imageUrl;
                             return Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [

@@ -97,7 +97,7 @@ class _HomePageState extends State<HomePage> {
                                   const SizedBox(height: 50),
                                   //Temp wind humudiy yazan kısmın çerçevesi buradan başlar
                                   tempWindHumudityContainer(),
-                                  const SizedBox(height: 50),
+                                  const SizedBox(height: 30),
                                   sevendayWidget(context),
                                 ],
                               );
