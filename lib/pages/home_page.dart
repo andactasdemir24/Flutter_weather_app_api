@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_weather_app/Model/city_model.dart';
 import 'package:flutter_weather_app/pages/seven_day_page.dart';
 import 'package:lottie/lottie.dart';
-import '../Model/images_model.dart';
 import '../Model/weather_model.dart';
 import '../service/weather_service.dart';
 
@@ -19,13 +18,17 @@ class _HomePageState extends State<HomePage> {
   final WeatherService _service = WeatherService(); //Servisi çektim api
   //Sayfayı yenilemede kullanmak için key oluşturdum
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
+  //cityModeli home page de oluştrdum
   final CityModel cityModel = CityModel();
+  //uygulama açılınca gösterilen şehir
   String selectedCity = 'Ankara';
 
   //Kontrolleri yap
   @override
   void initState() {
     super.initState();
+    //selectedCity yazmamın sebebi servisteki gelen apide city değerini kendim girmek istediğim için bir şehir girmem lazım
+    //bende bu şehri ilk başta ankara olarak tanımladım alttaki de aynı şekil
     myWeather = _service.fetchWeather(selectedCity.toLowerCase());
     _service.fetchWeather(selectedCity.toLowerCase()).then((value) {
       if (value != null && value.data != null) {
@@ -38,9 +41,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    //IMAGE MODELİNİ LİSTEYE ATTIM ÇEKTİM
-    final List<ImageModel?> imageModel = ImageModel.images;
-
     return Scaffold(
       floatingActionButton: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -83,24 +83,6 @@ class _HomePageState extends State<HomePage> {
                         builder: (context, snapshot) {
                           if (weatherList.isNotEmpty) {
                             if (snapshot.hasData) {
-                              //WEATHERLİSTİN 0. İNDEXİNİN DERECESİNİ TEMPE ATTIM BUNU YAPMAMIN SEBEBİ
-                              //AŞAĞIDA DERECENİN DEĞERİNE GÇRE HANGİ LOTTİE GELİCEK ONUN KONTROLU
-                              final temp = weatherList[0].temp;
-                              //Buradaki image değişkeni bagımsız bir isimdir istersen başka bir şey de olur
-                              String? image; //Image modeli tanımladım string olarak aşağıda kullanmak için
-                              if (temp != null) {
-                                //BURDA IMAGEMODELD OLAN LOTTİE ASSETLERİNDEN GELEN TEMP DEĞERİNE GÖRE EKRANA VERDİM
-                                if (temp > 20) {
-                                  image = imageModel[0]!.imageUrl;
-                                } else if (temp >= 0 && temp <= 20) {
-                                  image = imageModel[1]!.imageUrl;
-                                } else {
-                                  image = imageModel[2]!.imageUrl;
-                                }
-                              } else {
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(SnackBar(content: Text('${snapshot.error}')));
-                              }
                               return Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -111,7 +93,7 @@ class _HomePageState extends State<HomePage> {
                                   CustomSizedBox()._sizedBox10,
                                   dateTime(),
                                   const SizedBox(height: 10),
-                                  lottieAsset(image),
+                                  imageToday(),
                                   const SizedBox(height: 50),
                                   //Temp wind humudiy yazan kısmın çerçevesi buradan başlar
                                   tempWindHumudityContainer(),
@@ -143,6 +125,19 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  //ANASAYFADAKİ İCONU APİNİN İÇİNDEN ÇEKTİM
+  Image imageToday() {
+    String iconUrl = 'https://www.weatherbit.io/static/img/icons/';
+    return Image.network(
+      '$iconUrl${weatherList[0].weather!.icon.toString()}.png',
+      height: 200,
+      width: 200,
+      fit: BoxFit.cover,
+    );
+  }
+
+  //Şehir seçmek için oluşturduğum button
+  //cityModel diye bir model oluşturdum bütün şehirleri onun içinden çekiyorum
   ElevatedButton selectCityButton(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
@@ -157,7 +152,7 @@ class _HomePageState extends State<HomePage> {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: const Text("Şehirler"),
+              title: const Text("Cities"),
               content: SingleChildScrollView(
                 child: ListBody(
                   children: List.generate(cityModel.cities.length, (index) {
@@ -174,11 +169,12 @@ class _HomePageState extends State<HomePage> {
           },
         ).then((value) {
           setState(() {
+            //Başta verilen şehri seçilen değer ile değiş
             selectedCity = value;
           });
         });
       },
-      child: const Text("Şehir seçemk için tıklayınız!"),
+      child: const Text("Click to select city!"),
     );
   }
 

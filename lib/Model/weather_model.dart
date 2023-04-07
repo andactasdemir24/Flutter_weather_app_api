@@ -144,8 +144,8 @@ class Data {
     pres = json['pres'].toDouble();
     rh = json['rh'];
     slp = json['slp'].toDouble();
-    snow = json['snow'];
-    snowDepth = json['snow_depth'];
+    snow = json['snow'].toDouble().toInt();
+    snowDepth = json['snow_depth'].toDouble().toInt();
     sunriseTs = json['sunrise_ts'];
     sunsetTs = json['sunset_ts'];
     temp = json['temp'].toDouble();

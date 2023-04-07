@@ -19,7 +19,8 @@ class WeatherService {
     return null;
   }
   */
-
+  //YUKARIDAKİ KODDA APİNİN BANA SAĞLADIĞI ŞEHRİ ALIYORUM BU İŞİN BASE KODU YUKARIDAKİ
+  //BURADA İSE KULLANICIYA ŞEHRİ SEÇTİRDİM O YUZDEN BÖYLE YAPTIM
   Future<WeatherModel?> fetchWeather(String city) async {
     String url2 = 'https://api.weatherbit.io/v2.0/forecast/daily?city=$city&key=5cea02af6cd6498d9524cedb8ab23b4c';
     var response = await http.get(Uri.parse(url2));
