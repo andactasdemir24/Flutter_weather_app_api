@@ -140,7 +140,7 @@ class _HomePageState extends State<HomePage> {
         filled: true,
         fillColor: Colors.white,
         hintText: 'Enter a city name',
-        hintStyle: const TextStyle(color: Colors.black),
+        hintStyle: const TextStyle(color: Colors.grey),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15.0),
           borderSide: BorderSide.none,
