@@ -19,7 +19,7 @@ class _HomePageState extends State<HomePage> {
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
   //arama cubugu controllerı
   final TextEditingController searchController = TextEditingController();
-  //uygulama açılınca gösterilen şehirrrr
+  //uygulama açılınca gösterilen şehir
   String searchTerm = 'Ankara';
 
   //Kontrolleri yap
