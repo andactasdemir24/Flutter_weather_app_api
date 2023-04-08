@@ -8,7 +8,5 @@ Lottie Json file => https://lottiefiles.com/
 
 ![1](https://user-images.githubusercontent.com/96003255/229179509-3b5cb165-6b68-4d65-a8ce-7f50f7f9f19b.PNG)
 ![2](https://user-images.githubusercontent.com/96003255/230671472-05724d79-03d2-4d1b-9466-28ef546cb200.PNG)
-![3](https://user-images.githubusercontent.com/96003255/230671478-b6da2da9-53ed-45dd-864a-9bda661998f3.PNG)
-![4](https://user-images.githubusercontent.com/96003255/230671481-17233b7f-1a81-481d-a0bc-0b63a809bada.PNG)
-
+![3](https://user-images.githubusercontent.com/96003255/230746593-2b7ee49e-f5e1-43fe-850a-9a2c0c6e2079.PNG)
 
