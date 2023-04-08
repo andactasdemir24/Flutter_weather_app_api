@@ -14,12 +14,12 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   List<Data> weatherList = []; //BURDA İÇTEKİ DATALARI ALMAK İÇİN BOŞ LİSTEYE ATTIM
   late Future<WeatherModel?> myWeather; //BURADA EN BAŞTAKİ VERİLERİ ALDIM
-  final WeatherService _service = WeatherService(); //Servisi çektim api
+  final WeatherService _service = WeatherService(); //Servisi çektim apii
   //Sayfayı yenilemede kullanmak için key oluşturdum
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
   //arama cubugu controllerı
   final TextEditingController searchController = TextEditingController();
-  //uygulama açılınca gösterilen şehir
+  //uygulama açılınca gösterilen şehirr
   String searchTerm = 'Ankara';
 
   //Kontrolleri yap
