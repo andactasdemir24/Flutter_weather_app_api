@@ -164,8 +164,8 @@ class _SevenDayPageState extends State<SevenDayPage> {
   //tarih ve yanındaki max min temp yazan yer
   Row dateTimeAndTemp() {
     if (weatherList == null || weatherList!.isEmpty) {
-      return Row(
-        children: const [
+      return const Row(
+        children: [
           Text(
             'No weather data available',
             style: TextStyle(
